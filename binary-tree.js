@@ -40,9 +40,31 @@ class BinaryTree {
    * the length of the longest path from the root to a leaf. */
 
   maxDepth(node = this.root) {
+    let toVisitStack = [node];
+    let maxDepthCount = 0;
+    let numNodesArr = [];
 
-  }
+    while (toVisitStack[0]) {
+      let current = toVisitStack.pop();
+      maxDepthCount++;
+      
+      if(current.right === null && current.left === null){
+        numNodesArr.push(maxDepthCount);
+        maxDepthCount = numNodesArr[numNodesArr.length - 1];
+      }
 
+      if (current.left !== null) {
+        toVisitStack.push(current.left);
+      }
+      
+      if (current.right !== null) {
+        toVisitStack.push(current.right);
+      }
+
+    }
+
+    return Math.max(...numNodesArr, 0);
+}
   /** nextLarger(lowerBound): return the smallest value in the tree
    * which is larger than lowerBound. Return null if no such value exists. */
 
