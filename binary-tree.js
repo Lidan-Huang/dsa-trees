@@ -50,8 +50,14 @@ class BinaryTree {
   /** nextLarger(lowerBound): return the smallest value in the tree
    * which is larger than lowerBound. Return null if no such value exists. */
 
-  nextLarger(lowerBound, node = this.root) {
-
+  nextLarger(lowerBound, node = this.root, largerNums=[]) {
+    if (!node) return null;
+    if(node.val > lowerBound) {
+      largerNums.push(node.val);
+    }
+    this.nextLarger(lowerBound, node.left, largerNums);  
+    this.nextLarger(lowerBound, node.right, largerNums);  
+    return largerNums.length === 0 ? null : Math.min(...largerNums);
   }
 
   /** Further study!
@@ -64,3 +70,4 @@ class BinaryTree {
 }
 
 module.exports = { BinaryTree, BinaryTreeNode };
+
